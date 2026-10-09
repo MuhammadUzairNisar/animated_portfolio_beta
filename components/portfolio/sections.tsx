@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { ArrowUpRight, Download, GraduationCap, Mail, Phone } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import {
 } from "@/components/portfolio/reveal";
 import { gsap, MOTION_OK, useGSAP, WIDE } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
+import portrait from "@/public/muhammad-uzair-nisar.png";
 import {
   competencies,
   education,
@@ -71,36 +73,76 @@ function ScrubText({ text, className }: { text: string; className?: string }) {
   );
 }
 
+/**
+ * The portrait, as a card that rises out of the floor and leans toward the
+ * pointer, with the disc's orange glowing behind it. Name and role sit on a
+ * gradient over the bottom of the photo.
+ */
+function Portrait() {
+  return (
+    <Reveal tilt={30} y={60} className="mx-auto w-full max-w-[20rem] md:sticky md:top-28">
+      <div className="relative">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-primary/25 opacity-70 blur-3xl"
+        />
+        <TiltCard max={10}>
+          <figure className="relative overflow-hidden rounded-3xl border border-white/15 bg-card shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]">
+            <Image
+              src={portrait}
+              alt={`Portrait of ${profile.name}`}
+              placeholder="blur"
+              sizes="(min-width: 1024px) 20rem, (min-width: 768px) 17rem, 20rem"
+              className="aspect-square h-auto w-full object-cover"
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/90 via-black/50 to-transparent px-5 pt-16 pb-5">
+              <p className="font-display text-lg font-medium text-white">{profile.name}</p>
+              <p className="mt-0.5 flex items-center gap-2 text-sm text-white/65">
+                <span aria-hidden="true" className="size-1.5 rounded-full bg-primary" />
+                {profile.title}
+              </p>
+            </figcaption>
+          </figure>
+        </TiltCard>
+      </div>
+    </Reveal>
+  );
+}
+
 export function About() {
   return (
     <section id="about" aria-labelledby="about-title" className="scroll-mt-20 py-24 md:py-32">
       <div className={shell}>
         <SectionHeading id="about-title" eyebrow="About" title="Architecture first. Delivery always." />
 
-        <div className="grid gap-12 md:grid-cols-[1.3fr_1fr] md:gap-16">
-          <div className="space-y-6">
-            <ScrubText
-              text={profile.summary}
-              className="font-display text-xl leading-snug font-light text-white md:text-2xl"
-            />
-            <ScrubText text={profile.summaryMore} className="text-lg leading-relaxed text-white/75" />
-          </div>
+        <div className="grid items-start gap-12 md:grid-cols-[17rem_1fr] md:gap-14 lg:grid-cols-[20rem_1fr] lg:gap-20">
+          <Portrait />
 
-          <Reveal delay={0.1}>
-            <h3 className="mb-4 font-display text-sm font-medium uppercase tracking-[0.2em] text-white/45">
-              Core competencies
-            </h3>
-            <ul className="flex flex-wrap gap-2">
-              {competencies.map((c) => (
-                <li
-                  key={c}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-sm text-white/75"
-                >
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <div className="space-y-12">
+            <div className="space-y-6">
+              <ScrubText
+                text={profile.summary}
+                className="font-display text-xl leading-snug font-light text-white md:text-2xl"
+              />
+              <ScrubText text={profile.summaryMore} className="text-lg leading-relaxed text-white/75" />
+            </div>
+
+            <Reveal delay={0.1}>
+              <h3 className="mb-4 font-display text-sm font-medium uppercase tracking-[0.2em] text-white/45">
+                Core competencies
+              </h3>
+              <ul className="flex flex-wrap gap-2">
+                {competencies.map((c) => (
+                  <li
+                    key={c}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-sm text-white/75"
+                  >
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
         </div>
 
         <ScrollTilt className="mt-20" tilt={35} depth={140}>
