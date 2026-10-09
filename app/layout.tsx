@@ -14,10 +14,23 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const title = "Muhammad Uzair Nisar — Technical Team Lead";
+const description =
+  "Senior software engineer with 5+ years architecting full-stack enterprise systems — ERP, LMS, SIMS — across React, Next.js, Node.js, Python and .NET.";
+
 export const metadata: Metadata = {
-  title: "Muhammad Uzair Nisar — Technical Team Lead",
-  description:
-    "Senior software engineer with 5+ years architecting full-stack enterprise systems — ERP, LMS, SIMS — across React, Next.js, Node.js, Python and .NET.",
+  metadataBase: new URL("https://uzairnisar.site"),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Muhammad Uzair Nisar",
+    title,
+    description,
+  },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export const viewport: Viewport = {
